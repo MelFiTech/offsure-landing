@@ -1,18 +1,37 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss'
 
-export default {
+const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/**/*.{js,ts,jsx,tsx,mdx}', // This will catch all files in src directory
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'red-hat': ['"Red Hat Display"', 'sans-serif'],
+        'sans': ['"Geist"', 'sans-serif'],
+        'mono': ['"Geist Mono"', 'monospace'],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: '#3E9EFF',
+      },
+      animation: {
+        'gradient': 'gradient 8s linear infinite',
+      },
+      keyframes: {
+        gradient: {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          },
+        },
       },
     },
   },
   plugins: [],
-} satisfies Config;
+}
+
+export default config
