@@ -1,18 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 ${isMenuOpen ? 'bg-black' : 'bg-background/80 backdrop-blur-lg'} border-b border-gray-800`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 ${isMenuOpen || hasScrolled ? 'bg-black' : 'bg-background/80 backdrop-blur-lg'} border-b border-gray-800`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 sm:h-20">
           <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="text-xl sm:text-2xl font-bold text-white hover:text-primary transition-colors">
-              Offsure
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="Offsure Logo"
+                width={120}
+                height={40}
+                className="h-auto w-auto"
+              />
             </Link>
           </div>
 
